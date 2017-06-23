@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd" default-lazy-init="true">
+    <!-- redis 连接工厂 -->
+    <bean id="redisConnectionFactory"
+          class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+        <property name="hostName" value="${common.redis.ip}"/>
+        <property name="port" value="${common.redis.port}"/>
+        <property name="poolConfig" ref="jedisPoolConfig"/>
+    </bean>
+    <!-- redis 连接池 -->
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <property name="maxTotal" value="${common.redis.maxTotal}"/>
+        <property name="maxIdle" value="${common.redis.maxIdle}"/>
+        <property name="testOnBorrow" value="${common.redis.testOnBorrow}"/>
+        <property name="maxWaitMillis" value="${common.redis.maxWaitMillis}"></property>
+    </bean>
+    <bean id="jedisPool" class="redis.clients.jedis.JedisPool">
+        <constructor-arg index="0" ref="jedisPoolConfig" />
+        <constructor-arg index="1" value="${common.redis.ip}" />
+        <constructor-arg index="2" value="${common.redis.port}" />
+        <constructor-arg index="3" value="${common.redis.timeout}" />
+    </bean>
+    <!-- redis 操作工具类 -->
+    <bean id="redisUtil" class="com.qczl.websocket.util.RedisUtil">
+        <property name="pool" ref="jedisPool"/>
+    </bean>
+</beans>

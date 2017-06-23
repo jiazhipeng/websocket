@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
+        </encoder>
+    </appender>
+
+    <appender name="talkWebSocket" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/var/logs/talkWebSocket.log</file>
+        <Encoding>UTF-8</Encoding>
+        <!--  -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>/var/logs/talkWebSocket%d{yyyy-MM-dd}.log</FileNamePattern>
+            <MaxHistory>30</MaxHistory>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n</pattern>
+        </layout>
+    </appender>
+
+
+    <root level="debug">
+        <!--<appender-ref ref="talkWebSocket"/>-->
+        <appender-ref ref="STDOUT"/>
+    </root>
+
+</configuration>
