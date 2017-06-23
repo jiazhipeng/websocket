@@ -120,7 +120,7 @@ http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
 		  scope="prototype">
 		<property name="patterns">
 			<list>
-				<value>com.qczz.websocket.service.*</value>
+				<value>com.qczl.websocket.service.*</value>
 			</list>
 		</property>
 	</bean>
